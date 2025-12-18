@@ -81,3 +81,107 @@ This project is licensed under the MIT License.
 ## Author
 **Taewook Kang**  
 If you have questions or suggestions, feel free to reach out at [laputa99999@gmail.com](mailto:laputa99999@gmail.com).
+
+
+for the "blender-llm-addin-V2.py":
+# Blender AI Scene Assistant - Version 2.0
+
+## Major Changes
+
+### Dual Operation Modes
+
+Added mode selection between Code Generation and Q&A:
+
+**Code Generation Mode**
+- Converts natural language to executable Blender Python code
+- Same functionality as original version
+
+**Q&A Mode (NEW)**
+- Ask questions about your scene
+- Get technical explanations without code execution
+- Scene analysis and statistics
+
+### Enhanced Scene Context
+
+Improved scene awareness system:
+- Added `get_scene_statistics()` function for detailed scene metrics
+- Scene context now includes scale information
+- Better object description formatting
+
+### Improved Error Handling
+
+**Geometry Nodes Support**
+- Auto-detects geometry nodes requests
+- Enhanced prompts with socket index guidance
+- Specific error messages for KeyError and AttributeError
+
+**Better Code Extraction**
+- Multiple markdown pattern matching (```python, ```py, ```)
+- Raw code detection fallback
+- Improved debug output in console
+
+**Enhanced Error Messages**
+- Specific handlers for KeyError, AttributeError, and general exceptions
+- Detailed console logging for troubleshooting
+- Error messages explain likely causes
+
+### Ollama Cloud Model Support
+
+Added proper handling for Ollama cloud models:
+- `is_cloud_model()` function for detection
+- Cloud-specific API parameters (temperature, num_predict)
+- Better response handling and logging
+
+### UI Improvements
+
+**Unified Panel**
+- Single panel renamed to "AI Assistant"
+- Mode toggle between Code Generation and Q&A
+- Response display area for Q&A mode
+- Better text wrapping (40 characters)
+
+**New Utility Buttons**
+- Clear History: Reset conversation and responses
+- Scene Info: Display statistics in console
+
+**Better Status Updates**
+- Mode-specific status messages
+- Processing indicators
+- Detailed error feedback
+
+### Code Quality
+
+**Thread Safety**
+- Scene context captured on main thread before threading
+- Queue-based execution system
+- Safe globals in exec() environment
+
+**Prompt Engineering**
+- Geometry nodes expertise added to system prompts
+- Context-aware instruction injection
+- Simplified prompts for cloud model compatibility
+
+## New Functions
+
+- `is_cloud_model()` - Detects cloud models requiring special handling
+- `get_scene_statistics()` - Returns detailed scene metrics
+- `ai_qa_worker_thread()` - Background worker for Q&A mode
+- `update_response()` - Updates Q&A response field
+- `OBJECT_OT_AskQuestion` - Operator for Q&A mode
+- `OBJECT_OT_ClearHistory` - Clears conversation history
+- `OBJECT_OT_ShowSceneInfo` - Displays scene statistics
+
+## Modified Functions
+
+- `llm_agent()` - Added cloud model support and better error logging
+- `preprocess_code()` - Multiple pattern matching and enhanced debugging
+- `ai_code_worker_thread()` - Geometry nodes detection and enhanced prompts
+- `process_queue_timer()` - Specific error type handling
+- `describe_scene()` - Added scale information
+
+## Bug Fixes
+
+- Fixed "No valid code generated" error for cloud models
+- Fixed KeyError for geometry nodes property access
+- Fixed UI freezing during long AI responses
+- Improved code block extraction reliability
